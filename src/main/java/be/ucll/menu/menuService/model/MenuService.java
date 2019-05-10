@@ -113,7 +113,6 @@ public class MenuService {
     }
 
     public void addDayMenu(DayMenu dayMenu) {
-        System.out.println("Datum" + dayMenu.getDate());
         addDish(dayMenu.getSoup());
         addDish(dayMenu.getDagschotel());
         addDish(dayMenu.getVeggie());
