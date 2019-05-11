@@ -102,7 +102,9 @@ public class MenuService {
 
         for (int i = 0; i < 7 ; i++){
             try {
-                DayMenu meal = weekmenu.get(i);
+//                DayMenu meal = weekmenu.get(i);
+//                menu.add(meal);
+                DayMenu meal = menuRepository.findById(today).orElseThrow(IllegalArgumentException::new);
                 menu.add(meal);
 //                if (meal.getDate().getDayOfWeek().equals(DayOfWeek.MONDAY) && meal.getDate().equals(today) && i == 0){
 //                    menu.add(meal);
