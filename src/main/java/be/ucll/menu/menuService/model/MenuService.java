@@ -104,6 +104,11 @@ public class MenuService {
             try {
                 DayMenu meal = weekmenu.get(i);
                 menu.add(meal);
+//                if (meal.getDate().getDayOfWeek().equals(DayOfWeek.MONDAY) && meal.getDate().equals(today) && i == 0){
+//                    menu.add(meal);
+//                }else if (meal.getDate().equals(today)){
+//                    menu.add(meal);
+//                }
             }catch (Exception e){
                 //
             }
@@ -112,11 +117,11 @@ public class MenuService {
         return menu;
     }
 
-    public void addDayMenu(DayMenu dayMenu) {
+    public DayMenu addDayMenu(DayMenu dayMenu) {
         addDish(dayMenu.getSoup());
         addDish(dayMenu.getDagschotel());
         addDish(dayMenu.getVeggie());
-        menuRepository.save(dayMenu);
+        return menuRepository.save(dayMenu);
 //        menus.put(dayMenu.getDate(), dayMenu);
     }
 
@@ -129,10 +134,20 @@ public class MenuService {
     public List<DayMenu> changeDayMenu(LocalDate date, DayMenu dayMenu){
         //date = date.parse("dd-MM-yyyy");
         //DayMenu menu = menuRepository.getOne(date);
-        DayMenu menu = menuRepository.findById(date).orElseThrow(IllegalArgumentException::new);
+        dayMenu.setDate(date);
+
+        DayMenu previousMenu = menuRepository.findById(dayMenu.getDate()).orElseThrow(IllegalArgumentException::new);
+        previousMenu.getVeggie().setPrice(dayMenu.getVeggie().getPrice());
+        previousMenu.getVeggie().setType(dayMenu.getVeggie().getType());
+
+        previousMenu.getDagschotel().setPrice(dayMenu.getDagschotel().getPrice());
+        previousMenu.getDagschotel().setType(dayMenu.getDagschotel().getType());
+
+        previousMenu.getSoup().setPrice(dayMenu.getSoup().getPrice());
+        previousMenu.getSoup().setType(dayMenu.getSoup().getType());
 //        DayMenu menu = menuRepository.getOne(1);
 //        System.out.println("Dag: " + menu.getDayOfWeek());
-        commitToDatabase(menu);
+        commitToDatabase(previousMenu);
 //        menu.setDishes(dayMenu.getSoup(), dayMenu.getDagschotel(), dayMenu.getVeggie());
 //        menuRepository.save(menu);
         return getWeekMenu();
@@ -146,7 +161,11 @@ public class MenuService {
     }
 
     public Dish addDayMenuToDb(Dish dish){
-        dishRepository.findById(dish.getId()).ifPresent(dishToAdd -> dish.setId(dishToAdd.getId()));
+        Dish dishToAdd = dishRepository.findByName(dish.getName());
+        if(dishToAdd != null){
+            dish.setId(dishToAdd.getId());
+        }
+//        dishRepository.findById(dish.getId()).ifPresent(dishToAdd -> dish.setId(dishToAdd.getId()));
         return dishRepository.save(dish);
     }
 }

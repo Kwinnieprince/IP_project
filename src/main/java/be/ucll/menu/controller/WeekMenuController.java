@@ -22,7 +22,6 @@ public class WeekMenuController {
 
     @PostMapping("/dagmenu/add")
     public List<DayMenu> addNewDayMenu(@RequestBody @Valid DayMenu dayMenu){
-        System.out.println("first date: " + dayMenu.getDate().toString());
         menuService.addDayMenu(dayMenu);
         return menuService.getWeekMenu();
     }
