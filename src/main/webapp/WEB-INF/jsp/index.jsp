@@ -5,12 +5,12 @@
     <main>
         <h2>Dishes overview</h2>
         <table>
-            <tr>
-                <th>Name</th>
-                <th>price</th>
-            </tr>
             <c:choose>
-                <c:when test="${dishes != null}">
+                <c:when test="${dishes.size() != 0}">
+                    <tr>
+                        <th>Name</th>
+                        <th>price</th>
+                    </tr>
                     <c:forEach var ="dish" items = "${dishes}" >
                         <tr>
                             <td><c:out value="${dish.name}"/></td>
@@ -27,7 +27,7 @@
                     </c:forEach>
                 </c:when>
                 <c:otherwise>
-                    <p>Geen gerechten gevonden :( </p>
+                    <p> Er staan geen gerechten op het menu. </p>
                 </c:otherwise>
             </c:choose>
         </table>

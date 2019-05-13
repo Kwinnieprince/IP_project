@@ -23,6 +23,11 @@ public class MenuController implements WebMvcConfigurer {
         return "index";
     }
 
+    @GetMapping("/gerechten")
+    public String returnGerechten(Model model){
+        return home(model);
+    }
+
     @GetMapping("/")
     public String start(Model model){
         model.addAttribute("dishes", menuService.getDishes());

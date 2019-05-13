@@ -6,7 +6,9 @@
         </h2>
     </header>
     <main>
-        <h2>update <c:out value="${dish.name}"/></h2>
+        <c:if test="${not empty dish.name}">
+            <h2>update <c:out value="${dish.name}"/></h2>
+        </c:if>
         <c:if test="${not empty errors}">
             <c:forEach var="error" items="${errors}">
                 <div class="alert-danger">
@@ -26,7 +28,7 @@
             </select></p>
             <p><input type="submit" id="update" value="Add"></p>
         </form>
-        <form action="/" method="get">
+        <form action="/home" method="get">
             <input type="submit" value="cancel">
         </form>
 
