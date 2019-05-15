@@ -1,10 +1,8 @@
+package be.ucll.menu.menuService.model;
+
 import be.ucll.menu.controller.WeekMenuController;
 import be.ucll.menu.db.DishRepository;
 import be.ucll.menu.db.MenuRepository;
-import be.ucll.menu.menuService.model.DayMenu;
-import be.ucll.menu.menuService.model.Dish;
-import be.ucll.menu.menuService.model.MenuService;
-import be.ucll.menu.menuService.model.Type;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -17,7 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -64,7 +64,12 @@ public class WeekMenuControllerUnitTest {
         menuRepository.save(dayMenu2);
         menuRepository.save(dayMenu3);
 
-        Mockito.when(service.getWeekMenu()).thenReturn(Arrays.asList());
+        List<DayMenu> weekmenu = new ArrayList<>();
+        weekmenu.add(dayMenu1);
+        weekmenu.add(dayMenu2);
+        weekmenu.add(dayMenu3);
+
+        Mockito.when(service.getWeekMenu()).thenReturn(Arrays.asList(dayMenu1, dayMenu2, dayMenu3));
 
         weekMenuController.perform(get("/weekmenu").contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$", hasSize(3)));
 

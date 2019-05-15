@@ -14,7 +14,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class DishReposotoryIntegrationTest {
+public class DishRepositoryIntegrationTest {
 
     @Autowired
     private TestEntityManager testEntityManager;
@@ -23,7 +23,7 @@ public class DishReposotoryIntegrationTest {
     private DishRepository dishRepository;
 
     @Test
-    public void returns_all_the_dishes_in_the_repostitory(){
+    public void returns_all_the_dishes_in_the_repository(){
         Dish dish1 = new Dish("soep", 2.5, Type.Soep);
         testEntityManager.persist(dish1);
         testEntityManager.flush();
