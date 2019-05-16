@@ -170,4 +170,32 @@ public class MenuService {
 //        dishRepository.findById(dish.getId()).ifPresent(dishToAdd -> dish.setId(dishToAdd.getId()));
         return dishRepository.save(dish);
     }
+
+    public void deleteDayMenu(LocalDate date) {
+        DayMenu menu = menuRepository.getOne(date);
+        menuRepository.delete(menu);
+    }
+
+    public void deleteWeekMenu(LocalDate date){
+        LocalDate today = date;
+        if (LocalDate.now().getDayOfWeek() != DayOfWeek.MONDAY){
+            today = LocalDate.now(ZoneId.of("Europe/Brussels")).with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
+        }
+        for (int i = 0; i < 7 ; i++){
+            try {
+//                DayMenu meal = weekmenu.get(i);
+//                menu.add(meal);
+                DayMenu meal = menuRepository.findById(today).orElseThrow(IllegalArgumentException::new);
+                menuRepository.delete(meal);
+//                if (meal.getDate().getDayOfWeek().equals(DayOfWeek.MONDAY) && meal.getDate().equals(today) && i == 0){
+//                    menu.add(meal);
+//                }else if (meal.getDate().equals(today)){
+//                    menu.add(meal);
+//                }
+            }catch (Exception e){
+                //
+            }
+            today = today.plusDays(1);
+        }
+    }
 }

@@ -3,6 +3,7 @@ package be.ucll.menu.controller;
 import be.ucll.menu.menuService.model.DayMenu;
 import be.ucll.menu.menuService.model.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +33,20 @@ public class WeekMenuController {
         LocalDate dateFromUrl = LocalDate.parse(date, formatter);
         return menuService.changeDayMenu(dateFromUrl, dayMenu);
         //@PathVariable("date") @DateTimeFormat(pattern = "dd-MM-yyyy")
+    }
+
+    @PostMapping(value = "/dagmenu/delete/{date}")
+    public void deleteDayMenu(@PathVariable String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dateFromUrl = LocalDate.parse(date, formatter);
+        menuService.deleteDayMenu(dateFromUrl);
+    }
+
+    @PostMapping(value = "/weekmenu/delete/{date}")
+    public void deleteWeekMenu(@PathVariable String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dateFromUrl = LocalDate.parse(date, formatter);
+        menuService.deleteWeekMenu(dateFromUrl);
     }
 
 }
