@@ -22,7 +22,7 @@ public class WeekMenuController {
     }
 
     @PostMapping("/dagmenu/add")
-    public List<DayMenu> addNewDayMenu(@RequestBody @Valid DayMenu dayMenu){
+    public List<DayMenu> addNewDayMenu(@RequestBody @Valid DayMenu dayMenu) {
         menuService.addDayMenu(dayMenu);
         return menuService.getWeekMenu();
     }
