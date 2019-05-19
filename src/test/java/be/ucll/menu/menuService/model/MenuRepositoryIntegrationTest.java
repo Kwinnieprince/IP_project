@@ -2,6 +2,7 @@ package be.ucll.menu.menuService.model;
 
 import be.ucll.menu.db.MenuRepository;
 import com.sun.xml.internal.xsom.impl.parser.SubstGroupBaseTypeRef;
+import org.apache.tomcat.jni.Local;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,33 +28,30 @@ public class MenuRepositoryIntegrationTest {
 
     @Test
     public void returns_all_the_menu_s_in_the_menu_repository(){
-        Dish dish1 = new Dish("soep", 2.5, Type.Soep);
-        Dish dish2 = new Dish("dagschotel", 4.6, Type.Dagschotel);
-        Dish dish3 = new Dish("rijst", 2.6, Type.Veggie);
-        DayMenu menu = new DayMenu(dish1, dish2, dish3, "10-05-2019");
+        DayMenu menu = DayMenuBuilder.anOkDayMenu(LocalDate.now()).build();
+
         testEntityManager.persist(menu);
         testEntityManager.flush();
 
         List<DayMenu>menus = menuRepository.findAll();
 
         assertThat(menus.size()).isEqualTo(1);
-        assertThat(menus.contains(menu)).isTrue();
+        assertThat(menus).contains(menu);
 
     }
 
     @Test
     public void returns_day_menu_of_given_day(){
-        String date = "10-05-2019";
         Dish dish1 = new Dish("soep", 2.5, Type.Soep);
         Dish dish2 = new Dish("dagschotel", 4.6, Type.Dagschotel);
         Dish dish3 = new Dish("rijst", 2.6, Type.Veggie);
-        DayMenu menu = new DayMenu(dish1, dish2, dish3, date );
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate dateLocal = LocalDate.parse(date, formatter);
+        LocalDate date = LocalDate.now();
+        DayMenu menu = DayMenuBuilder.anDayMenu().withSoup(dish1).withDagschotel(dish2).withVeggie(dish3).onDate(date).build();
+
         testEntityManager.persist(menu);
         testEntityManager.flush();
 
-        DayMenu foundMenu = menuRepository.findById(dateLocal).orElseThrow(IllegalArgumentException::new);
+        DayMenu foundMenu = menuRepository.findById(date).orElseThrow(IllegalArgumentException::new);
 
         assertThat(foundMenu.getDagschotel()).isEqualTo(menu.getDagschotel());
         assertThat(foundMenu.getSoup()).isEqualTo(menu.getSoup());
@@ -62,19 +60,14 @@ public class MenuRepositoryIntegrationTest {
 
     @Test
     public void adds_menu_to_the_repository(){
-        String date = "10-05-2019";
-        Dish dish1 = new Dish("soep", 2.5, Type.Soep);
-        Dish dish2 = new Dish("dagschotel", 4.6, Type.Dagschotel);
-        Dish dish3 = new Dish("rijst", 2.6, Type.Veggie);
-        DayMenu menu = new DayMenu(dish1, dish2, dish3, date );
+        DayMenu menu = DayMenuBuilder.anOkDayMenu(LocalDate.now()).build();
+
         testEntityManager.persist(menu);
         testEntityManager.flush();
 
         DayMenu savedMenu = menuRepository.save(menu);
 
-        assertThat(savedMenu.getDagschotel()).isEqualTo(menu.getDagschotel());
-        assertThat(savedMenu.getSoup()).isEqualTo(menu.getSoup());
-        assertThat(savedMenu.getVeggie()).isEqualTo(menu.getVeggie());
+        assertThat(savedMenu).isEqualTo(menu);
     }
 
 }

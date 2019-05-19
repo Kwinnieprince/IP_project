@@ -12,6 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,24 +77,6 @@ public class MenuServiceUnitTest {
         assertThat(returnedDishes.size()).isEqualTo(3);
     }
 
-//    @Test
-//    public void find_dish_by_dish(){
-//
-//        Dish dishToFind = new Dish();
-//
-//        Mockito.when(dishRepository.findAll()).thenReturn(dishes);
-//
-//        List<Dish> returnedDishes = menuService.getDishes();
-//
-//        for (Dish dish : returnedDishes){
-//            if (dish.equals(soup)){
-//                dishToFind = soup;
-//            }
-//        }
-//
-//        assertThat(dishToFind).isEqualTo(soup);
-//    }
-
     @Test
     public void delete_dish_by_name_deletes_dish(){
         Mockito.when(dishRepository.findAll()).thenReturn(dishes);
@@ -128,15 +112,6 @@ public class MenuServiceUnitTest {
         assertThat(returnedDish.getType()).isEqualTo(soup.getType());
     }
 
-//    @Test
-//    public void findDishById() {
-//        Mockito.when(dishRepository.findById(soup.getId()).orElseThrow(IllegalArgumentException::new)).thenReturn(soup);
-//
-//        Dish returnedDish = dishRepository.findById(soup.getId()).orElseThrow(IllegalArgumentException::new);
-//
-//        assertThat(returnedDish).isEqualTo(soup);
-//    }
-
     @Test
     public void addDish() {
         Mockito.when(dishRepository.save(dagschotel)).thenReturn(dagschotel);
@@ -145,20 +120,6 @@ public class MenuServiceUnitTest {
 
         assertThat(returnedDish).isEqualTo(dagschotel);
     }
-
-//    @Test
-//    public void updateDish() {
-//        Mockito.when(dishRepository.findById(soup.getId()).ifPresent(dishToAdd -> soup.setId(dishToAdd.getId()))).thenReturn(soup);
-//
-//
-//
-//    }
-
-
-//    @Test
-//    public void deleteDish() {
-//
-//    }
 
     @Test
     public void add_day_menu(){
@@ -169,6 +130,15 @@ public class MenuServiceUnitTest {
         assertThat(returnedDayMenu.getDagschotel()).isEqualTo(dayMenu.getDagschotel());
         assertThat(returnedDayMenu.getSoup()).isEqualTo(dayMenu.getSoup());
         assertThat(returnedDayMenu.getVeggie()).isEqualTo(dayMenu.getVeggie());
+    }
+
+    @Test
+    public void change_day_menu(){
+        Mockito.when(menuRepository.save(this.dayMenu)).thenReturn(this.dayMenu);
+
+        DayMenu addedDayMenu = menuService.addDayMenu(this.dayMenu);
+
+        assertThat(addedDayMenu).isEqualTo(this.dayMenu);
     }
 
     @Test

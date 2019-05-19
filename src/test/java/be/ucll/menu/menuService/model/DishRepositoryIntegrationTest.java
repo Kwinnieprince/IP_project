@@ -24,45 +24,36 @@ public class DishRepositoryIntegrationTest {
 
     @Test
     public void returns_all_the_dishes_in_the_repository(){
-        Dish dish1 = new Dish("soep", 2.5, Type.Soep);
-        testEntityManager.persist(dish1);
+        Dish dish = DishBuilder.aOkDish().build();
+
+        testEntityManager.persist(dish);
         testEntityManager.flush();
 
-        Dish dish2 = new Dish("dagschotel", 4.6, Type.Dagschotel);
-        testEntityManager.persist(dish2);
-        testEntityManager.flush();
+        List<Dish> dishes = dishRepository.findAll();
 
-        List<Dish>dishesFound = dishRepository.findAll();
-
-        assertThat(dishesFound.size()).isEqualTo(2);
-        assertThat(dishesFound.contains(dish1)).isTrue();
-        assertThat(dishesFound.contains(dish2)).isTrue();
+        assertThat(dishes.size()).isEqualTo(1);
+        assertThat(dishes).contains(dish);
     }
 
     @Test
     public void finds_dish_with_given_name(){
-        Dish dish1 = new Dish("soep", 2.5, Type.Soep);
-        testEntityManager.persist(dish1);
+        Dish dish = DishBuilder.aDish().withName("Balletjes").withPrice(4.5).withType(Type.Dagschotel).build();
+
+        testEntityManager.persist(dish);
         testEntityManager.flush();
 
-        Dish foundDish = dishRepository.findByName(dish1.getName());
+        Dish foundDish = dishRepository.findByName("Balletjes");
 
-        assertThat(foundDish.getName()).isEqualTo(dish1.getName());
-        assertThat(foundDish.getType()).isEqualTo(dish1.getType());
-        assertThat(foundDish.getPrice()).isEqualTo(dish1.getPrice());
+        assertThat(foundDish).isEqualTo(dish);
     }
 
     @Test
     public void adds_a_dish_to_the_repository(){
-        Dish dish1 = new Dish("soep", 2.5, Type.Soep);
-        testEntityManager.persist(dish1);
-        testEntityManager.flush();
+        Dish dish = DishBuilder.aOkDish().build();
 
-        Dish foundDish = dishRepository.save(dish1);
+        Dish savedDish = dishRepository.save(dish);
 
-        assertThat(foundDish.getName()).isEqualTo(dish1.getName());
-        assertThat(foundDish.getType()).isEqualTo(dish1.getType());
-        assertThat(foundDish.getPrice()).isEqualTo(dish1.getPrice());
+        assertThat(dish).isEqualTo(savedDish);
     }
 
 }
