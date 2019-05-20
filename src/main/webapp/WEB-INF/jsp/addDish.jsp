@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp"/>
         <h2>
-            Add dish
+            Voeg gerecht toe
         </h2>
     </header>
     <main>
@@ -19,9 +19,9 @@
             </c:forEach>
         </c:if>
         <form method="post" action="/gerechten/add">
-            <p style="display: flex"><label for="name">Name</label><input type="text" id="name" name="name" required > </p>
-            <p style="display: flex"><label for="price">prijs</label><input type="text" id="price" name="price" required >&euro;</p>
-            <p style="display: flex"><label for="type">type</label>
+            <p style="display: flex"><label for="name">Naam</label><input type="text" id="name" name="name" required > </p>
+            <p style="display: flex"><label for="price">Prijs</label><input type="text" id="price" name="price" required ></p>
+            <p style="display: flex"><label for="type">Type</label>
                 <select name="type" id="type" required>
                     <c:forEach items="${values}" var="value">
                         <option value="${value}">${value}</option>

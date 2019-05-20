@@ -6,9 +6,12 @@
         </h2>
     </header>
     <main>
-        <h3>Oops something went wrong!</h3>
-        <p><a href="/home">go back to home</a></p>
-        <p><c:out value="${pageContext.exception.message}" /> </p>
+        <h3>Oeps er ging iets fout!</h3>
+        <p><a href="/home">ga terug naar de homepagina</a></p>
+        <br>
+        <p>Als je probeerde een gerecht te verwijderen dat in een dagmenu zit, moet je eerst het dagmenu verwijderen.</p>
+        <br>
+        <p>Er ging iets fout, als dit probleem blijft, contacteer ons op: <a href="mailto:noreply@ucll.be">support@ucll.be</a></p>
         <p>Something unexpected happened please try again and if the problem persists please contact us at <a href="mailto:noreply@ucll.be">support@ucll.be</a></p>
     </main>
 </div>

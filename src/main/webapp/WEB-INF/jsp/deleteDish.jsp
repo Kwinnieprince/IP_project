@@ -2,11 +2,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp"/>
         <h2>
-            Delete dish
+            Verwijder gerecht
         </h2>
     </header>
     <main>
-        <h2>Delete <c:out value="${dish.name}"/></h2>
+        <h3>Verwijder <c:out value="${dish.name}"/></h3>
         <c:if test="${not empty errors}">
             <c:forEach var="error" items="${errors}">
                 <div class="alert-danger">

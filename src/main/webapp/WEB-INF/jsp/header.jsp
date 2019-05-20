@@ -8,13 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IP menu app</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-    <link rel="stylesheet" href="../../../resources/templates/css/style.css">
+    <link rel="stylesheet" href="../resources/templates/css/style.css">
     <jsp:include page="footer.jsp"/>
 </head>
 <body>
 <div id="container">
     <header>
-        <h1><span>Dishes</span></h1>
+        <h1><span>Menu applicatie</span></h1>
         <nav>
             <ul>
                 <li><a href="/home">Home</a></li>

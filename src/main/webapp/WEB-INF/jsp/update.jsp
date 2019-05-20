@@ -2,11 +2,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp"/>
         <h2>
-            Update dish
+            Update gerecht
         </h2>
     </header>
     <main>
-        <h2>update <c:out value="${dish.name}"/></h2>
+        <h3>Update <c:out value="${dish.name}"/></h3>
         <c:if test="${not empty errors}">
             <c:forEach var="error" items="${errors}">
                 <div class="alert-danger">
@@ -17,9 +17,9 @@
             </c:forEach>
         </c:if>
         <form method="post" action="/gerechten/change">
-            <p style="display: flex"><label for="name">Name</label><input type="text" id="name" name="name" required readonly value="${dish.name}"> </p>
-            <p style="display: flex"><label for="price">prijs</label><input type="text" id="price" name="price" required value="${dish.price}">&euro;</p>
-            <p style="display: flex"><label for="type">type</label>
+            <p style="display: flex"><label for="name">Naam</label><input type="text" id="name" name="name" required readonly value="${dish.name}"> </p>
+            <p style="display: flex"><label for="price">Prijs</label><input type="text" id="price" name="price" required value="${dish.price}"></p>
+            <p style="display: flex"><label for="type">Type</label>
                 <select name="type" id="type" required>
                     <option value="Soep" ${dish.type eq "Soep" ? 'selected' : ''}>Soep</option>
                     <option value="Dagschotel" ${dish.type eq "Dagschotel" ? 'selected' : ''}>Dagschotel</option>

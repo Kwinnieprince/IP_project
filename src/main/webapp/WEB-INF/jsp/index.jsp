@@ -3,13 +3,13 @@
 <jsp:include page="header.jsp"/>
     </header>
     <main>
-        <h2>Dishes overview</h2>
+        <h2>Overzicht van de gerechten</h2>
         <c:choose>
         <c:when test="${dishes.size() != 0}">
         <table>
             <tr>
-                <th>Name</th>
-                <th>price</th>
+                <th>Naam</th>
+                <th>Prijs</th>
                     </tr>
                     <c:forEach var ="dish" items = "${dishes}" >
                         <tr>
@@ -22,7 +22,7 @@
                                 <c:param name="name" value="${dish.name}"/>
                             </c:url>
                             <td><a href="${updateURL}">update</a></td>
-                            <td><a href="${deleteURL}">delete</a></td>
+                            <td><a href="${deleteURL}">verwijder</a></td>
                         </tr>
                     </c:forEach>
         </table>

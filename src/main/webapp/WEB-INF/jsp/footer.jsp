@@ -113,7 +113,7 @@ input {
         max-width: 1000px;
     }
     h1 {
-        background-image: url("../images/banner2.jpg");
+        background-image: url("../images/banner3.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         height: 300px;
