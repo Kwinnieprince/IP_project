@@ -26,10 +26,6 @@ public class DayMenu {
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private int dishId;
 
     @ManyToOne (cascade = CascadeType.ALL)
     @Valid
@@ -73,7 +69,7 @@ public class DayMenu {
         this.dayOfWeek = dayOfWeek;
     }
 
-    @JsonProperty("datum")//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonProperty("datum")
     public LocalDate getDate() {//LocalDate getDate() {
         return date;
     }

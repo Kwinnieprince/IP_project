@@ -31,7 +31,6 @@ public class WeekMenuController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate dateFromUrl = LocalDate.parse(date, formatter);
         return menuService.changeDayMenu(dateFromUrl, dayMenu);
-        //@PathVariable("date") @DateTimeFormat(pattern = "dd-MM-yyyy")
     }
 
     @PostMapping(value = "/dagmenu/delete/{date}")
