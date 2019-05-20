@@ -19,10 +19,11 @@
             </c:forEach>
         </c:if>
         <form method="post" action="/gerechten/add">
-            <p style="display: flex"><label for="name">Naam</label><input type="text" id="name" name="name" required > </p>
-            <p style="display: flex"><label for="price">Prijs</label><input type="text" id="price" name="price" required ></p>
-            <p style="display: flex"><label for="type">Type</label>
+            <p style="display: flex"><label style="padding-right: 5px" for="name">Naam</label><input type="text" id="name" name="name" required > </p>
+            <p style="display: flex"><label style="padding-right: 5px" for="price">Prijs</label><input type="text" id="price" name="price" required ></p>
+            <p style="display: flex"><label style="padding-right: 5px" for="type">Type</label>
                 <select name="type" id="type" required>
+                    <option value="">Kies type</option>
                     <c:forEach items="${values}" var="value">
                         <option value="${value}">${value}</option>
                     </c:forEach>

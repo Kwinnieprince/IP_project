@@ -29,7 +29,7 @@ h2, main, footer {
 }
 
 h1 {
-    background-image: url("../images/banner2.jpg");
+    background-image: url("../images/banner3.jpg");
     height: 300px;
     width: 100%;
     background-repeat: no-repeat;

@@ -6,7 +6,7 @@
         </h2>
     </header>
     <main>
-        <h3>Update <c:out value="${dish.name}"/></h3>
+        <h4>Update <c:out value="${dish.name}"/></h4>
         <c:if test="${not empty errors}">
             <c:forEach var="error" items="${errors}">
                 <div class="alert-danger">
@@ -17,10 +17,11 @@
             </c:forEach>
         </c:if>
         <form method="post" action="/gerechten/change">
-            <p style="display: flex"><label for="name">Naam</label><input type="text" id="name" name="name" required readonly value="${dish.name}"> </p>
-            <p style="display: flex"><label for="price">Prijs</label><input type="text" id="price" name="price" required value="${dish.price}"></p>
-            <p style="display: flex"><label for="type">Type</label>
+            <p style="display: flex"><label style="padding-right: 5px" for="name">Naam</label><input type="text" id="name" name="name" required readonly value="${dish.name}"> </p>
+            <p style="display: flex"><label style="padding-right: 5px" for="price">Prijs</label><input type="text" id="price" name="price" required value="${dish.price}"></p>
+            <p style="display: flex"><label style="padding-right: 5px" for="type">Type</label>
                 <select name="type" id="type" required>
+                    <option value="">Kies type</option>
                     <option value="Soep" ${dish.type eq "Soep" ? 'selected' : ''}>Soep</option>
                     <option value="Dagschotel" ${dish.type eq "Dagschotel" ? 'selected' : ''}>Dagschotel</option>
                     <option value="Veggie" ${dish.type eq "Veggie" ? 'selected' : ''}>Veggie</option>

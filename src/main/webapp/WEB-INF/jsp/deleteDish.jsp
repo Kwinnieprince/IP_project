@@ -6,7 +6,7 @@
         </h2>
     </header>
     <main>
-        <h3>Verwijder <c:out value="${dish.name}"/></h3>
+        <h4>Verwijder <c:out value="${dish.name}"/></h4>
         <c:if test="${not empty errors}">
             <c:forEach var="error" items="${errors}">
                 <div class="alert-danger">

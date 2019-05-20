@@ -10,6 +10,8 @@
             <tr>
                 <th>Naam</th>
                 <th>Prijs</th>
+                <th>Update</th>
+                <th>Verwijder</th>
                     </tr>
                     <c:forEach var ="dish" items = "${dishes}" >
                         <tr>
