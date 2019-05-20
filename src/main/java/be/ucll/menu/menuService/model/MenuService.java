@@ -30,6 +30,12 @@ public class MenuService {
         return dishRepository.findAll();
     }
 
+    public DayMenu getDayMenuToday(){
+
+     return menuRepository.findByDate(LocalDate.now());
+
+    }
+
 
     public Dish findDishByName(String name) {
         return dishRepository.findByName(name);
@@ -48,10 +54,6 @@ public class MenuService {
 
     public void deleteDishByName(String name){
         dishRepository.deleteDishByName(name);
-    }
-
-    public Dish findDishById(int id) {
-        return dishRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     public void addDish(Dish dish){
@@ -93,7 +95,6 @@ public class MenuService {
     }
 
     public List<DayMenu> getWeekMenu(){
-        List<DayMenu> weekmenu = menuRepository.findAll();
         LocalDate today = LocalDate.now();
         if (LocalDate.now().getDayOfWeek() != DayOfWeek.MONDAY){
             today = LocalDate.now(ZoneId.of("Europe/Brussels")).with(TemporalAdjusters.previous(DayOfWeek.MONDAY));
@@ -102,15 +103,8 @@ public class MenuService {
 
         for (int i = 0; i < 7 ; i++){
             try {
-//                DayMenu meal = weekmenu.get(i);
-//                menu.add(meal);
                 DayMenu meal = menuRepository.findById(today).orElseThrow(IllegalArgumentException::new);
                 menu.add(meal);
-//                if (meal.getDate().getDayOfWeek().equals(DayOfWeek.MONDAY) && meal.getDate().equals(today) && i == 0){
-//                    menu.add(meal);
-//                }else if (meal.getDate().equals(today)){
-//                    menu.add(meal);
-//                }
             }catch (Exception e){
                 //
             }
@@ -124,18 +118,14 @@ public class MenuService {
         addDish(dayMenu.getDagschotel());
         addDish(dayMenu.getVeggie());
         return menuRepository.save(dayMenu);
-//        menus.put(dayMenu.getDate(), dayMenu);
     }
 
     public DayMenu findDayMenu(LocalDate date){
         return menuRepository.getOne(date);
-//        return menuRepository.getOne(1);
-//        return menus.get(date);
+
     }
 
     public List<DayMenu> changeDayMenu(LocalDate date, DayMenu dayMenu){
-        //date = date.parse("dd-MM-yyyy");
-        //DayMenu menu = menuRepository.getOne(date);
         dayMenu.setDate(date);
 
         DayMenu previousMenu = menuRepository.findById(dayMenu.getDate()).orElseThrow(IllegalArgumentException::new);
@@ -147,11 +137,9 @@ public class MenuService {
 
         previousMenu.getSoup().setPrice(dayMenu.getSoup().getPrice());
         previousMenu.getSoup().setType(dayMenu.getSoup().getType());
-//        DayMenu menu = menuRepository.getOne(1);
-//        System.out.println("Dag: " + menu.getDayOfWeek());
+
         commitToDatabase(previousMenu);
-//        menu.setDishes(dayMenu.getSoup(), dayMenu.getDagschotel(), dayMenu.getVeggie());
-//        menuRepository.save(menu);
+
         return getWeekMenu();
     }
 
@@ -167,7 +155,6 @@ public class MenuService {
         if(dishToAdd != null){
             dish.setId(dishToAdd.getId());
         }
-//        dishRepository.findById(dish.getId()).ifPresent(dishToAdd -> dish.setId(dishToAdd.getId()));
         return dishRepository.save(dish);
     }
 
@@ -183,15 +170,10 @@ public class MenuService {
         }
         for (int i = 0; i < 7 ; i++){
             try {
-//                DayMenu meal = weekmenu.get(i);
-//                menu.add(meal);
+
                 DayMenu meal = menuRepository.findById(today).orElseThrow(IllegalArgumentException::new);
                 menuRepository.delete(meal);
-//                if (meal.getDate().getDayOfWeek().equals(DayOfWeek.MONDAY) && meal.getDate().equals(today) && i == 0){
-//                    menu.add(meal);
-//                }else if (meal.getDate().equals(today)){
-//                    menu.add(meal);
-//                }
+
             }catch (Exception e){
                 //
             }

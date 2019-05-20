@@ -91,7 +91,7 @@ public class MenuController implements WebMvcConfigurer {
     }
 
     @PostMapping(value = "/gerechten/delete")
-    public String deleteDishData(@Valid Dish dish, BindingResult bindingResult, Model model){
+    public String deleteDishData(@Valid Dish dish, BindingResult bindingResult, Model model) {
         menuService.deleteDishByName(dish.getName());
         model.addAttribute("dishes", menuService.getDishes());
         return "redirect:/";

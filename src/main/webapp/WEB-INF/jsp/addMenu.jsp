@@ -52,9 +52,8 @@
 
     </main>
     <footer>
-        &copy; kwinten
+        kwinten
     </footer>
 </div>
-<jsp:include page="footer.jsp"/>
 </body>
 </html>

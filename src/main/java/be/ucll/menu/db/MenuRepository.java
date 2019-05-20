@@ -17,4 +17,5 @@ public interface MenuRepository extends JpaRepository<DayMenu, LocalDate> {
     DayMenu getDayMenuByDagschotel(Dish dagscotel);
     DayMenu getDayMenuByVeggie(Dish veggie);
     DayMenu getDayMenuBySoup(Dish soup);
+    DayMenu findByDate(LocalDate date);
 }
