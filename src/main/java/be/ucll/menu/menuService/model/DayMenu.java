@@ -27,15 +27,15 @@ public class DayMenu {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne (cascade = CascadeType.DETACH)
     @Valid
     private Dish soup;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne (cascade = CascadeType.DETACH)
     @Valid
     private Dish dagschotel;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne (cascade = CascadeType.DETACH)
     @Valid
     private Dish veggie;
 
