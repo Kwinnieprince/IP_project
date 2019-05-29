@@ -1,6 +1,7 @@
 package be.ucll.menu.menuService.model;
 
 import be.ucll.menu.db.DishRepository;
+import be.ucll.menu.db.DrankRepository;
 import be.ucll.menu.db.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class MenuService {
@@ -18,6 +20,8 @@ public class MenuService {
     DishRepository dishRepository;
     @Autowired
     MenuRepository menuRepository;
+    @Autowired
+    DrankRepository drankRepository;
 
     public MenuService(){
 //        dishes.add(new Dish("Balletjes", 2.5, Type.Dagschotel, nextId.incrementAndGet()));
@@ -117,6 +121,8 @@ public class MenuService {
         addDish(dayMenu.getSoup());
         addDish(dayMenu.getDagschotel());
         addDish(dayMenu.getVeggie());
+        drankRepository.save(dayMenu.getDrank1());
+        drankRepository.save(dayMenu.getDrank2());
         return menuRepository.save(dayMenu);
     }
 
@@ -179,5 +185,67 @@ public class MenuService {
             }
             today = today.plusDays(1);
         }
+    }
+
+    public List<Drank> getAllDrinks(){
+        return drankRepository.findAll();
+    }
+
+    public Drank getDrinkByName(String name){
+        return drankRepository.findByName(name);
+    }
+
+    public void deleteDrink(String name){
+        Drank drank = drankRepository.findByName(name);
+        drankRepository.delete(drank);
+    }
+
+    public Drank updateDrank(String name, Drank drank){
+        Drank previousDrank = drankRepository.findByName(name);
+        previousDrank.setPrice(drank.getPriceDrank());
+        previousDrank.setType(drank.getTypeDrank());
+        return drankRepository.save(previousDrank);
+    }
+
+    public Drank getRandomDrinkAlcohol(){
+        List<Drank>drinks = drankRepository.findAll();
+        List<Drank>alcohol = new ArrayList<>();
+        for (Drank drink : drinks){
+            if (drink.getTypeDrank().equals(DrankType.Bier) || drink.getTypeDrank().equals(DrankType.Alcoholisch)){
+                alcohol.add(drink);
+            }
+        }
+        if (alcohol.size() == 0){
+            return null;
+        }
+        if (alcohol.size() ==1){
+            return alcohol.get(0);
+        }else {
+            int random = new Random().nextInt(alcohol.size());
+            return alcohol.get(random);
+        }
+    }
+
+    public Drank getRandomDrinkNonAlcohol(){
+        List<Drank>drinks = drankRepository.findAll();
+        List<Drank>nonAlcohol = new ArrayList<>();
+        for (Drank drink : drinks){
+            if (drink.getTypeDrank().equals(DrankType.Frisdrank) || drink.getTypeDrank().equals(DrankType.Aperitief) || drink.getTypeDrank().equals(DrankType.Non_alcoholisch) || drink.getTypeDrank().equals(DrankType.Warme_drank)){
+                nonAlcohol.add(drink);
+            }
+        }
+        if (nonAlcohol.size() == 0){
+            return null;
+        }
+        if (nonAlcohol.size() ==1){
+            return nonAlcohol.get(0);
+        }else {
+            int random = new Random().nextInt(nonAlcohol.size());
+            return nonAlcohol.get(random);
+        }
+    }
+
+    public Drank addDrank(Drank drank){
+        return drankRepository.save(drank);
     }
 }

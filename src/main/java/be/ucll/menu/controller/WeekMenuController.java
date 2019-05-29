@@ -1,6 +1,7 @@
 package be.ucll.menu.controller;
 
 import be.ucll.menu.menuService.model.DayMenu;
+import be.ucll.menu.menuService.model.Drank;
 import be.ucll.menu.menuService.model.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,29 @@ public class WeekMenuController {
 
     @GetMapping(value = "/dagmenu")
     public DayMenu returnDayMenuOfToday(){
-        return menuService.getDayMenuToday();
+        DayMenu menu =  menuService.getDayMenuToday();
+        menu.addDrinks(menuService.getRandomDrinkAlcohol(), menuService.getRandomDrinkNonAlcohol());
+        return menu;
+    }
+
+    @GetMapping(value = "/dranken")
+    public List<Drank>returnEveryDrink(){
+        return menuService.getAllDrinks();
+    }
+
+    @PostMapping(value = "/drank/add")
+    public Drank addDrinkToDatabase(@RequestBody @Valid Drank drank){
+        return menuService.addDrank(drank);
+    }
+
+    @PostMapping(value = "/drank/update/{name}")
+    public Drank updateDrinkToDatabase(@PathVariable String name,@RequestBody @Valid Drank drank){
+        return menuService.updateDrank(name, drank);
+    }
+
+    @PostMapping(value = "/drank/delete/{name}")
+    public void deleteDrank(@PathVariable String name){
+        menuService.deleteDrink(name);
     }
 
 }
